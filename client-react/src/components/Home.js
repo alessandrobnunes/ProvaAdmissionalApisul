@@ -14,34 +14,45 @@ export class Home extends Component {
                 <div className="row text-center">
                     <div className="col col-lg-2">
                         <PercentualUsoElevador elevador="A" />
-                        <PercentualUsoElevador elevador="D" />
                     </div>
                     <div className="col col-lg-2">
                         <PercentualUsoElevador elevador="B" />
-                        <PercentualUsoElevador elevador="E" />
                     </div>
                     <div className="col col-lg-2">
                         <PercentualUsoElevador elevador="C" />
                     </div>
-                    <div className="col col-lg-6">
-                        <PeriodoMaiorUtilizacaoConjuntoElevadores />
+
+                    <div className="col col-lg-2">
+                        <PercentualUsoElevador elevador="D" />
+                    </div>
+                    <div className="col col-lg-2">
+                        <PercentualUsoElevador elevador="E" />
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col col-sm-4">
-                        <AndarMenosUtilizado />
+                        <PeriodoMaiorUtilizacaoConjuntoElevadores />
                     </div>
                     <div className="col col-sm-4">
                         <ElevadoresFrequentacao tipo="Mais" />
-                        <ElevadorPeriodoUtilizacao tipo="Maior" />
                     </div>
                     <div className="col col-sm-4">
                         <ElevadoresFrequentacao tipo="Menos" />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col-sm-4">
+                        <AndarMenosUtilizado />
+                    </div>
+                    <div className="col col-sm-4">
+                        <ElevadorPeriodoUtilizacao tipo="Maior" />
+                    </div>
+                    <div className="col col-sm-4">
                         <ElevadorPeriodoUtilizacao tipo="Menor" />
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

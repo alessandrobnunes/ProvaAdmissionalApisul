@@ -100,22 +100,7 @@ namespace ProvaAdmissionalCSharpApisul.Tests
             Assert.True(result.Count == 23);
         }
 
-        [Fact]
-        public void Sum_Of_Utilizacao_Periodo_Maior_Fluxo_Conjunto_Elevadores_Is_23_Test()
-        {
-            var result = _elevadorService.PeriodoMaiorUtilizacaoConjuntoElevadores();
-            var sum = 0;
-            foreach (var item in result)
-            {
-                sum += item.Utilizacao;
-                _output.WriteLine($"Turno: {item.Turno}, Utilização: {item.Utilizacao}");
-            }
-
-            _output.WriteLine($"Record Count: {result.Count}");
-
-            Assert.True(sum == 23);
-        }
-
+        
 
     }
 }

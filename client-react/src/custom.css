@@ -19,8 +19,9 @@ code {
 
 .card {
   margin: 0 2px 0 0 !important;
+  height: 100% !important;
 }
-
+/* 
 .container-fluid {
   margin: 3px !important;
-}
+} */

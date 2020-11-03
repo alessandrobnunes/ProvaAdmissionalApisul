@@ -48,7 +48,7 @@ export const AndarMenosUtilizado = () => {
     return (
         <div className="card">
             <div className="card-header text-center">
-                <h4 id="tabelLabel" >{displayName}</h4>
+                <h5 id="tabelLabel" >{displayName}</h5>
             </div>
             <div className="card-body">
                 {contents}

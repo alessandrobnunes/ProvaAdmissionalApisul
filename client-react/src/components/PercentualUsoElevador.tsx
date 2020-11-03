@@ -29,7 +29,7 @@ export const PercentualUsoElevador: React.FC<Props> = (props: Props) => {
     return (
         <div className="card">
             <div className="card-header text-center">
-                <h5 id="tabelLabel" >{displayName}</h5>
+                <h6 id="tabelLabel" >{displayName}</h6>
             </div>
             <div className="card-body text-center">
                 <h2>{contents}%</h2>
