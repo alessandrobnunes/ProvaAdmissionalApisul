@@ -228,8 +228,5 @@ namespace ProvaAdmissionalCSharpApisul.Services
 
             return result;
         }
-
-
-
     }
 }
