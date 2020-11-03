@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const ElevadorPeriodoUtilizacao: React.FC<Props> = (props: Props) => {
-    const displayName = `Período  ${props.tipo} Fluxo Elevador ${props.tipo === "Maior" ? "Mais" : "Menos"} Frequentados`;
+    const displayName = `Período ${props.tipo} Fluxo Elevadores ${props.tipo === "Maior" ? "Mais" : "Menos"} Frequentados`;
 
     const [elevadores, setElevadores] = useState([]);
     const [loading, setLoading] = useState(true);
