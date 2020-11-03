@@ -24,7 +24,9 @@ namespace ProvaAdmissionalCSharpApisul.Services
 
         public List<AndarUtilizacaoModel> AndarMenosUtilizado()
         {
-            var andarMenosUtilizadoList = new List<AndarUtilizacaoModel>();
+            var result = new List<AndarUtilizacaoModel>();
+            var utilizacao = 0;
+
             foreach (var item in _andarList)
             {
                 var query = _inputList
@@ -38,51 +40,182 @@ namespace ProvaAdmissionalCSharpApisul.Services
                         .OrderBy(o => (o.Utilizacao, o.Andar))
                         .FirstOrDefault();
 
-                andarMenosUtilizadoList.Add(new AndarUtilizacaoModel
+                if (query == null || query.Utilizacao <= utilizacao)
                 {
-                    Andar = item,
-                    Utilizacao = query == null ? 0 : query.Utilizacao
-                });
+                    utilizacao = query == null ? 0 : query.Utilizacao;
+                    result.Add(new AndarUtilizacaoModel
+                    {
+                        Andar = item,
+                        Utilizacao = utilizacao
+                    });
+                }
             }
 
-            return andarMenosUtilizadoList.OrderBy(o => o.Utilizacao).ToList();
+            return result.ToList();
 
         }
 
-        public List<ElevadorFrequentacaoModel> ElevadorMaisFrequentado() =>
-            _inputList.GroupBy(x => x.Elevador)
-                  .Select(x => new ElevadorFrequentacaoModel
-                  {
-                      Elevador = x.Key,
-                      Frequentacao = x.Count()
-                  })
-                  .OrderByDescending(o => o.Frequentacao).ToList();
+        public List<ElevadorFrequentacaoModel> ElevadorMaisFrequentado()
+        {
+            var frequentacao = 0;
+            var result = new List<ElevadorFrequentacaoModel>();
+            var query = _inputList.GroupBy(x => x.Elevador)
+                .Select(x => new ElevadorFrequentacaoModel
+                {
+                    Elevador = x.Key,
+                    Frequentacao = x.Count()
+                })
+                .OrderByDescending(o => o.Frequentacao).ToList();
 
-        public List<ElevadorPeriodoUtilizacaoModel> PeriodoMaiorFluxoElevadorMaisFrequentado() =>
-            ElevadorPeriodoUtilizacaoList()
-                .OrderByDescending(o => (o.Frequentacao, o.Utilizacao)).ToList();
+            foreach (var item in query)
+            {
+                if (item.Frequentacao >= frequentacao)
+                {
+                    frequentacao = item.Frequentacao;
+                    result.Add(new ElevadorFrequentacaoModel
+                    {
+                        Elevador = item.Elevador,
+                        Frequentacao = item.Frequentacao
+                    });
+                }
+            }
 
-        public List<ElevadorFrequentacaoModel> ElevadorMenosFrequentado() =>
-            _inputList.GroupBy(x => x.Elevador)
-                  .Select(x => new ElevadorFrequentacaoModel
-                  {
-                      Elevador = x.Key,
-                      Frequentacao = x.Count()
-                  })
-                  .OrderBy(o => o.Frequentacao).ToList();
+            return result;
+        }
 
-        public List<ElevadorPeriodoUtilizacaoModel> PeriodoMenorFluxoElevadorMenosFrequentado() =>
-            ElevadorPeriodoUtilizacaoList()
-                .OrderBy(o => (o.Frequentacao, o.Utilizacao)).ToList();
 
-        public List<PeriodoUtilizacaoModel> PeriodoMaiorUtilizacaoConjuntoElevadores() =>
-            _inputList.GroupBy(x => x.Turno)
-                 .Select(x => new PeriodoUtilizacaoModel
-                 {
-                     Turno = x.Key,
-                     Utilizacao = x.Count()
-                 })
-                 .OrderByDescending(o => o.Utilizacao).ToList();
+
+        public List<ElevadorPeriodoUtilizacaoModel> PeriodoMaiorFluxoElevadorMaisFrequentado()
+        {
+            var result = new List<ElevadorPeriodoUtilizacaoModel>();
+            var elevadorMaisFrequentadoList = ElevadorMaisFrequentado();
+
+            var utilizacao = 0;
+            foreach (var elevador in elevadorMaisFrequentadoList)
+            {
+                var query = _inputList
+                    .Where(w => w.Elevador == elevador.Elevador)
+                    .GroupBy(x => x.Turno)
+                    .Select(x => new ElevadorPeriodoUtilizacaoModel
+                    {
+                        Elevador = elevador.Elevador,
+                        Turno = x.Key,
+                        Utilizacao = x.Count()
+                    })
+                    .OrderByDescending(o => o.Utilizacao).ToList();
+
+                foreach (var item in query)
+                {
+                    if (item.Utilizacao >= utilizacao)
+                    {
+                        result.Add(new ElevadorPeriodoUtilizacaoModel
+                        {
+                            Elevador=elevador.Elevador,
+                            Turno = item.Turno,
+                            Utilizacao = item.Utilizacao
+                        });
+                    }
+
+                    utilizacao = item.Utilizacao;
+                }
+            }
+            return result;
+        }
+
+        public List<ElevadorFrequentacaoModel> ElevadorMenosFrequentado()
+        {
+            var frequentacao = 1;
+            var elevadorMenosFrequentadoList = new List<ElevadorFrequentacaoModel>();
+
+            foreach (var item in _elevadorList)
+            {
+                var query = _inputList
+                    .GroupBy(x => x.Elevador)
+                        .Where(w => w.Key == item)
+                        .Select(x => new ElevadorFrequentacaoModel
+                        {
+                            Elevador = x.Key,
+                            Frequentacao = x.Count()
+                        })
+                        .OrderBy(o => o.Frequentacao)
+                        .FirstOrDefault();
+
+                if (query == null || query.Frequentacao <= frequentacao)
+                {
+                    frequentacao = query == null ? 0 : query.Frequentacao;
+                    elevadorMenosFrequentadoList.Add(new ElevadorFrequentacaoModel
+                    {
+                        Elevador = item,
+                        Frequentacao = frequentacao
+                    });
+                }
+            }
+
+            return elevadorMenosFrequentadoList;
+        }
+
+        public List<ElevadorPeriodoUtilizacaoModel> PeriodoMenorFluxoElevadorMenosFrequentado()
+        {
+            var elevadorMenosFrequentadoList = ElevadorMenosFrequentado();
+            var utilizacao = 1;
+            var result = new List<ElevadorPeriodoUtilizacaoModel>();
+            foreach (var elevador in elevadorMenosFrequentadoList)
+            {
+                var query = _inputList
+                   .Where(w => w.Elevador == elevador.Elevador)
+                   .GroupBy(x => x.Turno)
+                   .Select(x => new ElevadorPeriodoUtilizacaoModel
+                   {
+                       Turno = x.Key,
+                       Utilizacao = x.Count()
+                   })
+                   .OrderBy(o => o.Utilizacao).ToList();
+
+                foreach (var item in query)
+                {
+                    if (query == null || item.Utilizacao <= utilizacao)
+                    {
+                        utilizacao = query == null ? 0 : item.Utilizacao;
+                        result.Add(new ElevadorPeriodoUtilizacaoModel
+                        {
+                            Elevador = elevador.Elevador,
+                            Turno = item.Turno,
+                            Utilizacao = item.Utilizacao
+                        });
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public List<PeriodoUtilizacaoModel> PeriodoMaiorUtilizacaoConjuntoElevadores()
+        {
+            var periodoUtilizacaoList = new List<PeriodoUtilizacaoModel>();
+            var query = _inputList.GroupBy(x => x.Turno)
+                    .Select(x => new PeriodoUtilizacaoModel
+                    {
+                        Turno = x.Key,
+                        Utilizacao = x.Count()
+                    })
+                    .OrderByDescending(o => o.Utilizacao).ToList();
+
+            var utilizacao = 0;
+            foreach (var item in query)
+            {
+                if (item.Utilizacao >= utilizacao)
+                {
+                    periodoUtilizacaoList.Add(new PeriodoUtilizacaoModel
+                    {
+                        Turno = item.Turno,
+                        Utilizacao = item.Utilizacao
+                    });
+                }
+                utilizacao = item.Utilizacao;
+            }
+
+            return periodoUtilizacaoList;
+        }
 
         public decimal PercentualDeUsoElevador(string elevador)
         {
@@ -96,33 +229,7 @@ namespace ProvaAdmissionalCSharpApisul.Services
             return result;
         }
 
-        // TODO: NÃO ESTÁ NA ORDEM CORRETA. REVISAR.
-        private List<ElevadorPeriodoUtilizacaoModel> ElevadorPeriodoUtilizacaoList()
-        {
-            var elevadorMaisFrequentado = ElevadorMaisFrequentado();
-            var elevadorPeriodoUtilizacao = new List<ElevadorPeriodoUtilizacaoModel>();
 
-            foreach (var item in elevadorMaisFrequentado)
-            {
-                var periodo = _inputList
-                    .Where(w => w.Elevador == item.Elevador)
-                    .GroupBy(g => g.Turno)
-                    .Select(s => new { Turno = s.Key, Utilizacao = s.Count() }).ToList();
-
-                if (periodo.Count > 1)
-                    foreach (var p in periodo)
-                        elevadorPeriodoUtilizacao.Add(
-                            new ElevadorPeriodoUtilizacaoModel
-                            {
-                                Elevador = item.Elevador,
-                                Turno = p.Turno,
-                                Frequentacao = item.Frequentacao,
-                                Utilizacao = p.Utilizacao
-                            });
-            }
-
-            return elevadorPeriodoUtilizacao;
-        }
 
     }
 }

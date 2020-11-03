@@ -58,7 +58,7 @@ namespace ProvaAdmissionalCSharpApisul.Tests
             foreach (var item in result)
             {
                 _output.WriteLine($"Elevador: {item.Elevador}, Turno: {item.Turno}, " +
-                    $"Frequentacao: {item.Frequentacao}, Utilizacao: {item.Utilizacao}");
+                    $"Utilizacao: {item.Utilizacao}");
             }
         }
 
@@ -69,7 +69,7 @@ namespace ProvaAdmissionalCSharpApisul.Tests
 
             foreach (var item in result)
                 _output.WriteLine($"Elevador: {item.Elevador}, Turno: {item.Turno}, " +
-                    $"Frequentacao: {item.Frequentacao}, Utilizacao: {item.Utilizacao}");
+                    $"Utilizacao: {item.Utilizacao}");
 
             _output.WriteLine($"Record Count: {result.Count}");
 
