@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
- export const AndarMenosUtilizado = () => {
+export const AndarMenosUtilizado = () => {
     const displayName = "Andar Menos Utilizado";
 
     const [elevadores, setElevadores] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        populateElevadores();
+        if (elevadores.length===0)
+            populateElevadores();
     });
 
 

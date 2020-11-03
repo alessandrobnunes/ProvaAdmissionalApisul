@@ -5,11 +5,12 @@ interface Props {
 }
 export const PercentualUsoElevador: React.FC<Props> = (props: Props) => {
     const displayName = `Percentual de Uso Elevador ${props.elevador}`;
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getData();
+        if (data === 0)
+            getData();
     });
 
 
@@ -19,7 +20,7 @@ export const PercentualUsoElevador: React.FC<Props> = (props: Props) => {
         setData(data);
         setLoading(false);
     }
-   
+
 
     let contents = loading
         ? <p><em>Loading...</em></p>

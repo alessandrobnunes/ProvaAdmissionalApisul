@@ -11,10 +11,11 @@ export const ElevadoresFrequentacao: React.FC<Props> = (props: Props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        populateElevadores();
+        // if (elevadores.length === 0)
+            populateElevadores();
     });
 
-
+    
     const populateElevadores = async () => {
 
         let response;
@@ -29,6 +30,7 @@ export const ElevadoresFrequentacao: React.FC<Props> = (props: Props) => {
         setLoading(false);
     }
     const renderElevadores = () => {
+
         return (
 
             <table className='table table-striped' aria-labelledby="tabelLabel">

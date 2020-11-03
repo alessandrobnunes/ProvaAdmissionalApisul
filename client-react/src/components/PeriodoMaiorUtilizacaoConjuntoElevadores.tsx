@@ -7,7 +7,8 @@ export const PeriodoMaiorUtilizacaoConjuntoElevadores = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        populateElevadores();
+        if (elevadores.length === 0)
+            populateElevadores();
     });
 
 

@@ -11,7 +11,8 @@ export const ElevadorPeriodoUtilizacao: React.FC<Props> = (props: Props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        populateElevadores();
+        if (elevadores.length === 0)
+            populateElevadores();
     });
 
 
@@ -36,16 +37,14 @@ export const ElevadorPeriodoUtilizacao: React.FC<Props> = (props: Props) => {
                 <thead>
                     <tr>
                         <th>Elevador</th>
-                        <th>Frequentação</th>
                         <th>Turno</th>
-                        <th>Frequentação</th>
+                        <th>Utilização</th>
                     </tr>
                 </thead>
                 <tbody>
                     {elevadores.map(result =>
-                        <tr key={result.elevador}>
+                        <tr key={result.turno}>
                             <td>{result.elevador}</td>
-                            <td>{result.frequentacao}</td>
                             <td>{result.turno}</td>
                             <td>{result.utilizacao}</td>
                         </tr>
