@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProvaAdmissionalCSharpApisul.Api", "Api\ProvaAdmissionalCSharpApisul.Api.csproj", "{7FF47AEB-2CF9-4000-A000-0ADF13773359}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProvaAdmissionalCSharpApisul.Tests", "Tests\ProvaAdmissionalCSharpApisul.Tests.csproj", "{CB71D19A-C177-40CE-A91A-30A35982FD06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FF47AEB-2CF9-4000-A000-0ADF13773359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF47AEB-2CF9-4000-A000-0ADF13773359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF47AEB-2CF9-4000-A000-0ADF13773359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF47AEB-2CF9-4000-A000-0ADF13773359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB71D19A-C177-40CE-A91A-30A35982FD06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB71D19A-C177-40CE-A91A-30A35982FD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB71D19A-C177-40CE-A91A-30A35982FD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB71D19A-C177-40CE-A91A-30A35982FD06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FBF053D-0300-44D8-8613-48620D581B0B}
+	EndGlobalSection
+EndGlobal
