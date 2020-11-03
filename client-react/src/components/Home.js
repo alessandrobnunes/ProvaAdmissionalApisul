@@ -32,7 +32,7 @@ export class Home extends Component {
 
                 <div className="row">
                     <div className="col col-sm-4">
-                        <PeriodoMaiorUtilizacaoConjuntoElevadores />
+                        <AndarMenosUtilizado />
                     </div>
                     <div className="col col-sm-4">
                         <ElevadoresFrequentacao tipo="Mais" />
@@ -43,7 +43,7 @@ export class Home extends Component {
                 </div>
                 <div className="row">
                     <div className="col col-sm-4">
-                        <AndarMenosUtilizado />
+                        <PeriodoMaiorUtilizacaoConjuntoElevadores />
                     </div>
                     <div className="col col-sm-4">
                         <ElevadorPeriodoUtilizacao tipo="Maior" />
